@@ -8,13 +8,13 @@
 (export hash)
 
 (defsyntax-for-match hash
-  (syntax-rules (:as)
+  (syntax-rules ()
     ((_)
      (? hash-table?))
     ((_ (k v) kvs ...)
      (and (hash kvs ...) (apply (cut hash-ref <> 'k #f) v)))
     ((_ ht)
      ht))
-  (syntax-rules (:options)
+  (syntax-rules ()
     ((_ kvs ...)
      (stock-hash kvs ...))))
