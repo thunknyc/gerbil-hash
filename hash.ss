@@ -3,30 +3,18 @@
 ;; Edwin Watkeys, edw@poseur.com
 ;;
 
-(import :std/iter
-        :std/sugar
-        :thunknyc/list)
+(import (rename-in :std/sugar (hash stock-hash)))
 
-(export hash plist->hash*)
-
-(def (plist->hash* kvs (options '()))
-  (let (ht (apply make-hash-table options))
-    (for ((kv (chunk 2 kvs)))
-      (with ([k v] kv) (hash-put! ht k v)))
-    ht))
+(export hash)
 
 (defsyntax-for-match hash
   (syntax-rules (:as)
     ((_)
      (? hash-table?))
-    ((_ :as ht kvs ...)
-     (and (hash kvs ...) ht))
-    ((_ kpat vpat kvs ...)
-     (and (hash kvs ...) (apply (cut hash-ref <> kpat #f) vpat))))
+    ((_ (k v) kvs ...)
+     (and (hash kvs ...) (apply (cut hash-ref <> 'k #f) v)))
+    ((_ ht)
+     ht))
   (syntax-rules (:options)
-    ((_)
-     (make-hash-table))
-    ((_ kvs ... :options os)
-     (plist->hash* (list kvs ...) os))
     ((_ kvs ...)
-     (plist->hash* (list kvs ...)))))
+     (stock-hash kvs ...))))
