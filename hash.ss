@@ -12,7 +12,7 @@
     ((_)
      (? hash-table?))
     ((_ (k v) kvs ...)
-     (and (hash kvs ...) (apply (cut hash-ref <> 'k #f) v)))
+     (and (hash kvs ...) (apply (cut hash-get <> 'k) v)))
     ((_ ht)
      ht))
   (syntax-rules ()
