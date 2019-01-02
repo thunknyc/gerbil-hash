@@ -7,16 +7,16 @@
   :gerbil/gambit
   (rename-in :std/sugar (hash sugar-hash)))
 
-(export hash table? sugar-hash)
+(export hash)
 
 (defsyntax-for-match hash
   (syntax-rules ()
     ((_)
-     (? table?))
+     (? hash?))
     ((_ (k v) ...)
-     (and (? table?) (apply (cut hash-get <> 'k) v) ...))
+     (and (? hash?) (apply (cut hash-get <> 'k) v) ...))
     ((_ (k v) ... t)
-     (and (? table? t) (apply (cut hash-get <> 'k) v) ...)))
+     (and (? hash? t) (apply (cut hash-get <> 'k) v) ...)))
   (syntax-rules ()
     ((_ (k v) ...)
      (sugar-hash (k v) ...))))
