@@ -3,9 +3,7 @@
 ;; Edwin Watkeys, edw@poseur.com
 ;;
 
-(import
-  :gerbil/gambit
-  (rename-in :std/sugar (hash sugar-hash)))
+(import (rename-in :std/sugar (hash sugar-hash)))
 
 (export hash)
 
